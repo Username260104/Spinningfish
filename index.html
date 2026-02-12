@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gaze of Void</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <!-- MediaPipe Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Background/Overlay for feedback -->
+        <div id="overlay"></div>
+
+        <!-- Main Content -->
+        <div id="content">
+            <h1 class="title">The Gaze of Void</h1>
+
+            <!-- Timer Display -->
+            <div id="timer-container">
+                <span id="timer">00:00:00.00</span>
+            </div>
+
+            <!-- Central Object (Placeholder for Spinning Fish) -->
+            <div id="target-container">
+                <div id="target-object" class="hidden">
+                    <!-- Spinning Fish GIF or 3D Model here -->
+                    <img src="https://media.giphy.com/media/l41lFw057lAJQM50I/giphy.gif" alt="Spinning Fish"
+                        id="fish-image">
+                </div>
+                <div id="start-prompt">
+                    <button id="start-btn">ENTER THE VOID</button>
+                    <p class="instruction">카메라 권한을 허용하고 화면 중앙을 응시하세요.</p>
+                </div>
+            </div>
+
+            <!-- Stop Button (Visible only when running) -->
+            <button id="stop-btn" class="hidden">STOP & SAVE</button>
+
+            <!-- Ranking Modal -->
+            <div id="ranking-modal" class="hidden">
+                <div class="modal-content">
+                    <h2>RANKING</h2>
+                    <ul id="ranking-list">
+                        <!-- Ranking Items will be injected here -->
+                    </ul>
+                    <div class="input-group">
+                        <input type="text" id="nickname-input" placeholder="Enter Nickname" maxlength="10">
+                        <button id="save-btn">SAVE RECORD</button>
+                    </div>
+                    <button id="restart-btn">RETRY</button>
+                </div>
+            </div>
+
+            <!-- Debug Canvas (Optional, can be hidden) -->
+            <canvas class="output_canvas"></canvas>
+
+            <!-- Hidden Video Element for MediaPipe -->
+            <video class="input_video" style="display: none;"></video>
+        </div>
+    </div>
+
+    <!-- Main Logic -->
+    <script type="module" src="./src/main.js"></script>
+</body>
+
+</html>
