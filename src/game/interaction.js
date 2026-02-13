@@ -5,7 +5,7 @@
 
 export class InteractionManager {
     constructor() {
-        this.fishImage = document.getElementById('fish-image');
+        this.fishVideo = document.getElementById('fish-video');
         this.overlay = document.getElementById('overlay');
         this.bgm = new Audio('https://ia800501.us.archive.org/11/items/LippsInc.-Funkytown/Lipps%20Inc.%20-%20Funkytown.mp3'); // Funky Town (Archive.org)
 
@@ -34,7 +34,8 @@ export class InteractionManager {
         if (!this.isPlaying) {
             this.isPlaying = true;
             this.bgm.play().catch(e => console.warn("Audio play blocked:", e));
-            this.fishImage.parentElement.classList.remove('paused');
+            this.fishVideo.play().catch(e => console.warn("Video play blocked:", e));
+            this.fishVideo.parentElement.classList.remove('paused');
             document.body.classList.remove('gaze-lost');
         }
     }
@@ -46,7 +47,8 @@ export class InteractionManager {
         if (this.isPlaying) {
             this.isPlaying = false;
             this.bgm.pause();
-            this.fishImage.parentElement.classList.add('paused');
+            this.fishVideo.pause();
+            this.fishVideo.parentElement.classList.add('paused');
             document.body.classList.add('gaze-lost');
         }
     }

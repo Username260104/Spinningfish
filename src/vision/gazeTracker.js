@@ -122,8 +122,8 @@ export class GazeTracker {
         // 미러 모드에서는 사용자의 오른쪽이 화면의 오른쪽
 
         // Threshold: 0.5 기준 +/- 0.1 ~ 0.15 범위 내면 중앙으로 간주
-        const CENTER_MIN = 0.40;
-        const CENTER_MAX = 0.60;
+        const CENTER_MIN = 0.30;
+        const CENTER_MAX = 0.70;
 
         const leftOk = leftRatio >= CENTER_MIN && leftRatio <= CENTER_MAX;
         const rightOk = rightRatio >= CENTER_MIN && rightRatio <= CENTER_MAX;

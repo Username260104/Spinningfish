@@ -1,6 +1,6 @@
-# SPEC.md : Spinning FishGaze Tracker
+# SPEC.md : Watch Spinning Fish
 
-> **Project Name:** Gaze Interaction Web (Project Name: The Gaze of Void)
+> **Project Name:** Watch Spinning Fish
 > **Version:** 0.1.0
 > **Objective:** 웹캠 기반의 시선 추적 기술을 활용하여 사용자가 화면 중앙의 특정 객체(Target Object)를 응시하는 지속 시간을 측정하고 데이터를 기록한다.
 
