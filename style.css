@@ -153,17 +153,6 @@ body {
     /* Mirror effect */
 }
 
-/* Stop Button */
-#stop-btn {
-    display: none;
-    /* Auto Game Over replaces manual stop */
-}
-
-#stop-btn:hover {
-    border-color: var(--text-color);
-    color: var(--text-color);
-}
-
 /* Ranking Modal */
 #ranking-modal {
     position: absolute;

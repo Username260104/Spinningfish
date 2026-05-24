@@ -5,6 +5,8 @@
  * 추후 Firebase로 교체될 예정입니다.
  */
 
+import { formatDuration } from '../utils/timeFormatter.js';
+
 const STORAGE_KEY = 'void_gaze_ranking';
 
 export class RankingManager {
@@ -68,30 +70,33 @@ export class RankingManager {
      * @param {HTMLElement} container - 리스트가 들어갈 `<ul>` 또는 `<table>` 요소
      */
     render(container) {
-        container.innerHTML = '';
+        container.replaceChildren();
 
         if (this.records.length === 0) {
-            container.innerHTML = '<li class="empty">기록이 없습니다.</li>';
+            const emptyItem = document.createElement('li');
+            emptyItem.className = 'empty';
+            emptyItem.textContent = '기록이 없습니다.';
+            container.appendChild(emptyItem);
             return;
         }
 
         this.records.forEach((record, index) => {
             const li = document.createElement('li');
+            const rank = document.createElement('span');
+            const name = document.createElement('span');
+            const score = document.createElement('span');
+
             li.className = 'rank-item';
-            li.innerHTML = `
-                <span class="rank">#${index + 1}</span>
-                <span class="name">${record.nickname}</span>
-                <span class="score">${this.formatTime(record.duration)}</span>
-            `;
+            rank.className = 'rank';
+            name.className = 'name';
+            score.className = 'score';
+
+            rank.textContent = `#${index + 1}`;
+            name.textContent = record.nickname;
+            score.textContent = formatDuration(record.duration);
+
+            li.append(rank, name, score);
             container.appendChild(li);
         });
-    }
-
-    formatTime(ms) {
-        const totalSeconds = Math.floor(ms / 1000);
-        const minutes = Math.floor(totalSeconds / 60);
-        const seconds = totalSeconds % 60;
-        const milliseconds = Math.floor((ms % 1000) / 10);
-        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
     }
 }

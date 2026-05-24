@@ -1,7 +1,6 @@
 /**
  * camera.js
  * 웹캠 비디오 스트림을 관리하는 클래스입니다.
- * MediaPipe CameraUtils를 활용하거나 네이티브 getUserMedia를 래핑합니다.
  */
 
 export class CameraManager {
@@ -48,10 +47,29 @@ export class CameraManager {
      * 스트림을 정지합니다.
      */
     stop() {
+        const streams = new Set();
+
         if (this.stream) {
-            this.stream.getTracks().forEach(track => track.stop());
-            this.stream = null;
+            streams.add(this.stream);
         }
+
+        if (this.videoElement && this.videoElement.srcObject) {
+            streams.add(this.videoElement.srcObject);
+        }
+
+        streams.forEach((stream) => {
+            if (stream && typeof stream.getTracks === 'function') {
+                stream.getTracks().forEach(track => track.stop());
+            }
+        });
+
+        if (this.videoElement) {
+            this.videoElement.pause();
+            this.videoElement.srcObject = null;
+            this.videoElement.onloadedmetadata = null;
+        }
+
+        this.stream = null;
     }
 
     /**

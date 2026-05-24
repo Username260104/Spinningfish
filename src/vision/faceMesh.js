@@ -4,12 +4,13 @@
  */
 
 export class FaceMeshManager {
-    constructor(videoElement, canvasElement) {
+    constructor(videoElement, canvasElement, debugOptions) {
         this.videoElement = videoElement;
         this.canvasElement = canvasElement;
         this.canvasCtx = canvasElement.getContext('2d');
         this.faceMesh = null;
         this.onResultsCallback = null;
+        this.debugOptions = debugOptions;
     }
 
     /**
@@ -57,9 +58,7 @@ export class FaceMeshManager {
      * 디버깅을 위해 얼굴 멘쉬를 캔버스에 그립니다.
      */
     drawDebug(results) {
-        if (!this.canvasElement) return;
-
-        const debugGray = '#C0C0C070';
+        if (!this.canvasElement || !this.debugOptions.enabled) return;
 
         this.canvasCtx.save();
         this.canvasCtx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
@@ -69,11 +68,15 @@ export class FaceMeshManager {
         if (results.multiFaceLandmarks) {
             for (const landmarks of results.multiFaceLandmarks) {
                 drawConnectors(this.canvasCtx, landmarks, FACEMESH_TESSELATION,
-                    { color: debugGray, lineWidth: 1 });
-                drawConnectors(this.canvasCtx, landmarks, FACEMESH_RIGHT_EYE, { color: debugGray });
-                drawConnectors(this.canvasCtx, landmarks, FACEMESH_RIGHT_IRIS, { color: debugGray });
-                drawConnectors(this.canvasCtx, landmarks, FACEMESH_LEFT_EYE, { color: debugGray });
-                drawConnectors(this.canvasCtx, landmarks, FACEMESH_LEFT_IRIS, { color: debugGray });
+                    { color: this.debugOptions.connectorColor, lineWidth: this.debugOptions.connectorLineWidth });
+                drawConnectors(this.canvasCtx, landmarks, FACEMESH_RIGHT_EYE,
+                    { color: this.debugOptions.connectorColor });
+                drawConnectors(this.canvasCtx, landmarks, FACEMESH_RIGHT_IRIS,
+                    { color: this.debugOptions.connectorColor });
+                drawConnectors(this.canvasCtx, landmarks, FACEMESH_LEFT_EYE,
+                    { color: this.debugOptions.connectorColor });
+                drawConnectors(this.canvasCtx, landmarks, FACEMESH_LEFT_IRIS,
+                    { color: this.debugOptions.connectorColor });
             }
         }
         this.canvasCtx.restore();

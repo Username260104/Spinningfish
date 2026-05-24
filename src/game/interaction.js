@@ -6,7 +6,6 @@
 export class InteractionManager {
     constructor() {
         this.fishVideo = document.getElementById('fish-video');
-        this.overlay = document.getElementById('overlay');
         this.bgm = new Audio('https://ia800501.us.archive.org/11/items/LippsInc.-Funkytown/Lipps%20Inc.%20-%20Funkytown.mp3'); // Funky Town (Archive.org)
 
         this.bgm.loop = true;
@@ -36,25 +35,18 @@ export class InteractionManager {
             this.bgm.play().catch(e => console.warn("Audio play blocked:", e));
             this.fishVideo.play().catch(e => console.warn("Video play blocked:", e));
             this.fishVideo.parentElement.classList.remove('paused');
-            document.body.classList.remove('gaze-lost');
         }
     }
 
     /**
-     * 비활성 상태 (시선 이탈): 음악 정지, 애니메이션 정지, 화면 어둡게/붉게
+     * 비활성 상태: 음악 정지, 애니메이션 정지
      */
-    deactivate({ showOverlay = true } = {}) {
+    deactivate() {
         if (this.isPlaying) {
             this.isPlaying = false;
             this.bgm.pause();
             this.fishVideo.pause();
             this.fishVideo.parentElement.classList.add('paused');
-        }
-
-        if (showOverlay) {
-            document.body.classList.add('gaze-lost');
-        } else {
-            document.body.classList.remove('gaze-lost');
         }
     }
 }

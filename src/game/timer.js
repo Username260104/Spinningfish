@@ -3,6 +3,8 @@
  * 시선 유지 시간을 측정하고 UI에 표시하는 클래스입니다.
  */
 
+import { formatDuration } from '../utils/timeFormatter.js';
+
 export class Timer {
     constructor() {
         this.startTime = 0;
@@ -59,22 +61,9 @@ export class Timer {
      * @param {number} ms - 밀리초 단위 시간
      */
     render(ms) {
-        const totalSeconds = Math.floor(ms / 1000);
-        const hours = Math.floor(totalSeconds / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
-        const milliseconds = Math.floor((ms % 1000) / 10); // 두 자리까지만 표시
-
-        const formattedTime =
-            `${this.pad(hours)}:${this.pad(minutes)}:${this.pad(seconds)}.${this.pad(milliseconds)}`;
-
         if (this.timerElement) {
-            this.timerElement.textContent = formattedTime;
+            this.timerElement.textContent = formatDuration(ms, { includeHours: true });
         }
-    }
-
-    pad(num) {
-        return num.toString().padStart(2, '0');
     }
 
     /**
