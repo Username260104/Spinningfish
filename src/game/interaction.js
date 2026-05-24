@@ -43,13 +43,18 @@ export class InteractionManager {
     /**
      * 비활성 상태 (시선 이탈): 음악 정지, 애니메이션 정지, 화면 어둡게/붉게
      */
-    deactivate() {
+    deactivate({ showOverlay = true } = {}) {
         if (this.isPlaying) {
             this.isPlaying = false;
             this.bgm.pause();
             this.fishVideo.pause();
             this.fishVideo.parentElement.classList.add('paused');
+        }
+
+        if (showOverlay) {
             document.body.classList.add('gaze-lost');
+        } else {
+            document.body.classList.remove('gaze-lost');
         }
     }
 }

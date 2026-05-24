@@ -133,7 +133,7 @@ class App {
             console.log("Game Over triggered");
 
             // 1. 게임 루프/인터랙션 정지
-            this.interactionManager.deactivate();
+            this.interactionManager.deactivate({ showOverlay: false });
             this.timer.stop();
             targetObject.classList.add('hidden');
             // stopBtn.classList.add('hidden');

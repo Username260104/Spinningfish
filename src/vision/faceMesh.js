@@ -59,6 +59,8 @@ export class FaceMeshManager {
     drawDebug(results) {
         if (!this.canvasElement) return;
 
+        const debugGray = '#C0C0C070';
+
         this.canvasCtx.save();
         this.canvasCtx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
         this.canvasCtx.drawImage(
@@ -67,11 +69,11 @@ export class FaceMeshManager {
         if (results.multiFaceLandmarks) {
             for (const landmarks of results.multiFaceLandmarks) {
                 drawConnectors(this.canvasCtx, landmarks, FACEMESH_TESSELATION,
-                    { color: '#C0C0C070', lineWidth: 1 });
-                drawConnectors(this.canvasCtx, landmarks, FACEMESH_RIGHT_EYE, { color: '#FF3030' });
-                drawConnectors(this.canvasCtx, landmarks, FACEMESH_RIGHT_IRIS, { color: '#FF3030' });
-                drawConnectors(this.canvasCtx, landmarks, FACEMESH_LEFT_EYE, { color: '#30FF30' });
-                drawConnectors(this.canvasCtx, landmarks, FACEMESH_LEFT_IRIS, { color: '#30FF30' });
+                    { color: debugGray, lineWidth: 1 });
+                drawConnectors(this.canvasCtx, landmarks, FACEMESH_RIGHT_EYE, { color: debugGray });
+                drawConnectors(this.canvasCtx, landmarks, FACEMESH_RIGHT_IRIS, { color: debugGray });
+                drawConnectors(this.canvasCtx, landmarks, FACEMESH_LEFT_EYE, { color: debugGray });
+                drawConnectors(this.canvasCtx, landmarks, FACEMESH_LEFT_IRIS, { color: debugGray });
             }
         }
         this.canvasCtx.restore();
